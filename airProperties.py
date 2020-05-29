@@ -3,6 +3,7 @@
 # The main assumptions are: ideal gas, pressure and temperature dependencies only considered
 
 import math
+import numpy as np
 
 class airProperties():
     '''
@@ -47,4 +48,4 @@ class airProperties():
     
     def Cp_air(self):
         # Heat capacity of air in J/kg/K
-        return 1.E-05 * self.ambTemperature**3 - 0.0013 * self.ambTemperature**2 + 0.0422 * self.ambTemperature + 1006.4
+        return 1.0E-05 * np.power(self.ambTemperature,3) - 0.0013 * np.power(self.ambTemperature,2) + 0.0422 * self.ambTemperature + 1006.4
