@@ -22,6 +22,5 @@ Flight_1 = ACOp.operatingConditions('Flight_1', 'Hot', 40000., 0.7)
 
 # 3/ Use of available methods in the class
 # Ambient temperature for the considered operating conditions
-Ambient_Temperature_F1 = ACOp.operatingConditions.Tstat(Flight_1)
-
-# 
+Ambient_Temperature_F1 = Flight_1.Ttot()
+Ambient_Temperature_FG = Ground_1.Ttot()
