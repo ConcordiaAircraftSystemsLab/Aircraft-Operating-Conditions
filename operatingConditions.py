@@ -11,6 +11,8 @@ class operatingConditions():
     dayType: type of the day
     altitude: altitude of the aircraft in ft
     speed: aircraft speed in Ma
+    time: time of the day (day or night)
+    RH: Relative Humidity of air in %
     '''
     # Sea level conditions
     pressureSL = 101325.
@@ -26,6 +28,7 @@ class operatingConditions():
                  altitude: float,
                  speed: float,
                  time: str,
+                 RH: float,
                  *args,
                  **kwargs):
 
@@ -34,6 +37,7 @@ class operatingConditions():
         self.altitude = altitude
         self.speed = speed
         self.time = time
+        self.RH = RH
 
     def pressure(self):
         # Ambient pressure in Pa
@@ -148,10 +152,8 @@ class operatingConditions():
                 return 0.92 * Q_sun
 
     def radSky(self):
-        # Relative Humidity
-        RH = 50.
         # Dew point Temperature
-        dewTemp = -34.56 + 0.446 * RH + 0.873 * operatingConditions.Ttot(self)
+        dewTemp = -34.56 + 0.446 * self.RH + 0.873 * operatingConditions.Ttot(self)
         # Sky emissivity
         skyEmissivity = 0.741 + 0.0062 * dewTemp
         # Stefan-Boltzmann Constant
@@ -165,12 +167,10 @@ class operatingConditions():
         wind = 5.
         # Solar load
         Q_sun = operatingConditions.solarLoad(self)
-        # Relative Humidity (assumed)
-        RH = 50.
         # Temperature of the environment
         Tenv = operatingConditions.Ttot(self)
 
         if self.time == 'day':
-            return 41.51 + 0.102 * wind + 1.71 * Tenv + 0.032 * RH - 0.029 * Q_sun + 0.002 * Tenv * RH + 5.7E-4 * wind * Q_sun + 0.0014 * Q_sun + 4.09E10-5 * Q_sun**2 - 1.15E-6 * Tenv * Q_sun**2
+            return 41.51 + 0.102 * wind + 1.71 * Tenv + 0.032 * self.RH - 0.029 * Q_sun + 0.002 * Tenv * self.RH + 5.7E-4 * wind * Q_sun + 0.0014 * Q_sun + 4.09E10-5 * Q_sun**2 - 1.15E-6 * Tenv * Q_sun**2
         else:
-            return 18.471 + 0.507 * Tenv - 0.00345 * RH - 0.649 * wind + 0.00941 * Tenv**2 + 4.8946E-5 * Tenv**3
+            return 18.471 + 0.507 * Tenv - 0.00345 * self.RH - 0.649 * wind + 0.00941 * Tenv**2 + 4.8946E-5 * Tenv**3

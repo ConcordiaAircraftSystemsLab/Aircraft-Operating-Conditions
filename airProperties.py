@@ -8,7 +8,7 @@ import numpy as np
 class airProperties():
     '''
     # Calculation of the air properties for specific operating conditions
-    operatingConditions: operating conditions of the aircraft
+    Pamb: ambient pressure in Pa
     ambTemperature: average ambient temperature of the environment under study (e.g. equipment bay,
     aircraf environment, etc.)
     '''
