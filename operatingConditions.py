@@ -47,6 +47,7 @@ class opCond():
 
     def T_ISA(self):
         # International Standard Atmosphere Temperature
+        # Returning a temperature in degree Celsius °C
         if self.altitude<=36000.:
             return opCond.temperatureSL - 1.98 * self.altitude / 1000.
         else:

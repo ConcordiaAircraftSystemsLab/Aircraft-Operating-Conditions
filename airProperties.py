@@ -10,7 +10,7 @@ class airProperties():
     # Calculation of the air properties for specific operating conditions
     Pamb: ambient pressure in Pa
     ambTemperature: average ambient temperature of the environment under study (e.g. equipment bay,
-    aircraf environment, etc.)
+    aircraf environment, etc.) which can be derived (or equal to) the total air temperature (T_tot)
     '''
     # Sea level conditions
     pressureSL = 101325.
@@ -49,3 +49,7 @@ class airProperties():
     def Cp_air(self):
         # Heat capacity of air in J/kg/K
         return 1.0E-05 * np.power(self.ambTemperature,3) - 0.0013 * np.power(self.ambTemperature,2) + 0.0422 * self.ambTemperature + 1006.4
+
+    def sg_air(self):
+        # Specific gravity of air (dimensionless)
+        return airProperties.rho_air(self)/airProperties.densitySL
